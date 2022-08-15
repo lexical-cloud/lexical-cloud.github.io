@@ -128,10 +128,11 @@
 <br>
 <div class=td-toc><nav id=TableOfContents>
 <ul>
-<li><a href=#taxonomy-entities>Taxonomy Entities</a></li>
-<li><a href=#taxonomy-relations>Taxonomy Relations</a></li>
-<li><a href=#logical-model>Logical Model</a></li>
-<li><a href=#physical-model>Physical Model</a></li>
+<li><a href=#taxonomy-group>Taxonomy Group</a></li>
+<li><a href=#example-metadata>Example Metadata</a></li>
+<li><a href=#term-relations>Term Relations</a></li>
+<li><a href=#logical-data-model>Logical Data Model</a></li>
+<li><a href=#physical-data-model>Physical Data Model</a></li>
 </ul>
 </nav></div>
 </div>
@@ -332,99 +333,326 @@
 <h1>Data Model</h1>
 <header class=article-meta>
 </header>
-<h2 id=taxonomy-entities>Taxonomy Entities</h2>
+<p>Lexical.cloud curates cloud products into hierarchical groups, also known as a taxonomy.
+Taxonomy terms are populated by metadata from each entry in our docs and glossary.</p>
+<table>
+<thead>
+<tr>
+<th>Entry Type</th>
+<th>Description</th>
+<th><a href=https://github.com/lexical-cloud/lexical-cloud-docs/>Directory in project</a></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Doc</td>
+<td>Documented cloud products</td>
+<td>en/docs/{service}/{provider}/</td>
+</tr>
+<tr>
+<td>Glossary</td>
+<td>Terms used in taxonomy by docs</td>
+<td>en/glossary/</td>
+</tr>
+</tbody>
+</table>
+<div class="alert alert-primary" role=alert>
+<h4 class=alert-heading>Help us improve!</h4>
+Use &ldquo;Create docs issue&rdquo; to submit ideas for improving the below illustrations. Thanks!
+</div>
+<h2 id=taxonomy-group>Taxonomy Group</h2>
+<p>Terms for each group originate in the docs. The glossary independently defines a term.</p>
 <pre tabindex=0><code class=language-mermaid data-lang=mermaid>erDiagram
-    DOCS ||--|{ SERVICE : provides
-    DOCS ||--|{ PROVIDER : from 
-    DOCS ||--|{ DOMAIN : belongs
-    DOCS ||--|{ CATEGORY : belongs
-    DOCS ||--o{ FEATURE : contains
-    DOCS ||--o{ LABEL : has
-</code></pre><h2 id=taxonomy-relations>Taxonomy Relations</h2>
+    GLOSSARY |o..|| SERVICE : defines
+    GLOSSARY |o..|| PROVIDER : defines
+    GLOSSARY |o..|| DOMAIN : defines
+    GLOSSARY |o..|| CATEGORY : defines
+    GLOSSARY |o..|| FEATURE : defines
+    GLOSSARY |o..|| LABEL : defines
+    SERVICE ||--o{ DOC : originates
+    PROVIDER ||--o{ DOC : originates
+    DOMAIN ||--o{ DOC : originates
+    CATEGORY ||--o{ DOC : originates
+    FEATURE ||--o{ DOC : originates
+    LABEL ||--o{ DOC : originates
+</code></pre><table>
+<thead>
+<tr>
+<th>Group</th>
+<th>Description</th>
+<th>Example Terms</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Service</td>
+<td>Purpose of a cloud product</td>
+<td>Monitor, Governance</td>
+</tr>
+<tr>
+<td>Provider</td>
+<td>Originator of a cloud product</td>
+<td>AWS, Azure, Google Cloud</td>
+</tr>
+<tr>
+<td>Domain</td>
+<td>Collection of services with intersecting categories</td>
+<td>Observability, Modernization</td>
+</tr>
+<tr>
+<td>Category</td>
+<td>Group specific to a domain and/or service</td>
+<td>Auditing, Dashboards</td>
+</tr>
+<tr>
+<td>Feature</td>
+<td>Specific functionality from a product</td>
+<td>Alerts, Reports</td>
+</tr>
+<tr>
+<td>Label</td>
+<td>Attribute of a product</td>
+<td>Deprecated</td>
+</tr>
+</tbody>
+</table>
+<h2 id=example-metadata>Example Metadata</h2>
+<p>Let&rsquo;s explore <strong>doc</strong> entries for monitoring products:</p>
+<ul class="nav nav-tabs" id=tabs-1 role=tablist><li class=nav-item>
+<a class="nav-link active tab-Amazon-CloudWatch" id=tabs-1-0-tab data-toggle=tab href=#tabs-1-0 role=tab onclick='handleClick("Amazon-CloudWatch")' aria-controls=tabs-1-0 aria-selected=true>
+Amazon CloudWatch
+</a>
+</li><li class=nav-item>
+<a class="nav-link tab-Azure-Monitor" id=tabs-1-1-tab data-toggle=tab href=#tabs-1-1 role=tab onclick='handleClick("Azure-Monitor")' aria-controls=tabs-1-1 aria-selected=false>
+Azure Monitor
+</a>
+</li><li class=nav-item>
+<a class="nav-link tab-Google-Cloud-Monitoring" id=tabs-1-2-tab data-toggle=tab href=#tabs-1-2 role=tab onclick='handleClick("Google-Cloud-Monitoring")' aria-controls=tabs-1-2 aria-selected=false>
+Google Cloud Monitoring
+</a>
+</li></ul>
+<div class=tab-content id=tabs-1-content><div class="tab-pane fade show active" id=tabs-1-0 role=tabpanel aria-labelled-by=tabs-1-0-tab><pre tabindex=0><code class=language-en data-lang=en>---
+services:
+  - &#34;monitor&#34;
+providers:
+  - &#34;aws&#34;
+domains:
+  - &#34;observability&#34;
+categories:
+  - &#34;telemetry data&#34;
+features:
+  - &#34;alerts&#34;
+  - &#34;open telemetry&#34;
+title: &#34;Amazon CloudWatch&#34;
+linkTitle: &#34;Amazon CloudWatch&#34;
+---</code></pre></div>
+<div class="tab-pane fade" id=tabs-1-1 role=tabpanel aria-labelled-by=tabs-1-1-tab><pre tabindex=0><code class=language-en data-lang=en>---
+services:
+  - &#34;monitor&#34;
+providers:
+  - &#34;azure&#34;
+domains:
+  - &#34;observability&#34;
+categories:
+  - &#34;telemetry data&#34;
+  - &#34;auditing&#34;
+features:
+  - &#34;alerts&#34;
+title: &#34;Azure Monitor&#34;
+linkTitle: &#34;Azure Monitor&#34;
+---</code></pre></div>
+<div class="tab-pane fade" id=tabs-1-2 role=tabpanel aria-labelled-by=tabs-1-2-tab><pre tabindex=0><code class=language-en data-lang=en>---
+services:
+  - &#34;monitor&#34;
+providers:
+  - &#34;gcp&#34;
+domains:
+  - &#34;observability&#34;
+categories:
+  - &#34;dashboards&#34;
+  - &#34;telemetry data&#34;
+features:
+  - &#34;alerts&#34;
+  - &#34;open telemetry&#34;
+title: &#34;Google Cloud Monitoring&#34;
+linkTitle: &#34;Google Cloud Monitoring&#34;
+---</code></pre></div>
+</div>
+<p>And <strong>glossary</strong> entries that support them:</p>
+<ul class="nav nav-tabs" id=tabs-2 role=tablist><li class=nav-item>
+<a class="nav-link active tab-Observability" id=tabs-2-0-tab data-toggle=tab href=#tabs-2-0 role=tab onclick='handleClick("Observability")' aria-controls=tabs-2-0 aria-selected=true>
+Observability
+</a>
+</li><li class=nav-item>
+<a class="nav-link tab-Telemetry-Data" id=tabs-2-1-tab data-toggle=tab href=#tabs-2-1 role=tab onclick='handleClick("Telemetry-Data")' aria-controls=tabs-2-1 aria-selected=false>
+Telemetry Data
+</a>
+</li><li class=nav-item>
+<a class="nav-link tab-Open-Telemetry" id=tabs-2-2-tab data-toggle=tab href=#tabs-2-2 role=tab onclick='handleClick("Open-Telemetry")' aria-controls=tabs-2-2 aria-selected=false>
+Open Telemetry
+</a>
+</li><li class=nav-item>
+<a class="nav-link tab-Alerts" id=tabs-2-3-tab data-toggle=tab href=#tabs-2-3 role=tab onclick='handleClick("Alerts")' aria-controls=tabs-2-3 aria-selected=false>
+Alerts
+</a>
+</li></ul>
+<div class=tab-content id=tabs-2-content><div class="tab-pane fade show active" id=tabs-2-0 role=tabpanel aria-labelled-by=tabs-2-0-tab><pre tabindex=0><code class=language-en data-lang=en>---
+title: &#34;Observability&#34;
+linkTitle: &#34;observability&#34;
+definitionLink: &#34;https://glossary.cncf.io/observability/&#34;
+services:
+  - &#34;monitor&#34;
+---</code></pre></div>
+<div class="tab-pane fade" id=tabs-2-1 role=tabpanel aria-labelled-by=tabs-2-1-tab><pre tabindex=0><code class=language-en data-lang=en>---
+title: &#34;Telemetry Data&#34;
+linkTitle: &#34;telemetry data&#34;
+definitionLink: &#34;https://en.wikipedia.org/wiki/Telemetry&#34;
+services:
+  - &#34;monitor&#34;
+domains:
+  - &#34;observability&#34;
+---</code></pre></div>
+<div class="tab-pane fade" id=tabs-2-2 role=tabpanel aria-labelled-by=tabs-2-2-tab><pre tabindex=0><code class=language-en data-lang=en>---
+title: &#34;Open Telemetry&#34;
+linkTitle: &#34;open telemetry&#34;
+domains:
+  - &#34;observability&#34;
+---</code></pre></div>
+<div class="tab-pane fade" id=tabs-2-3 role=tabpanel aria-labelled-by=tabs-2-3-tab><pre tabindex=0><code class=language-en data-lang=en>---
+title: &#34;Alerts&#34;
+linkTitle: &#34;alerts&#34;
+definitionLink: &#34;https://en.wikipedia.org/wiki/Alert_messaging&#34;
+---</code></pre></div>
+</div>
+<p>Notice the relationship of glossary <code>linkTitle</code> with the doc entries.</p>
+<h2 id=term-relations>Term Relations</h2>
+<p>The glossary optionally relates each term to ancestor groups. Many docs reference each term.</p>
 <pre tabindex=0><code class=language-mermaid data-lang=mermaid>erDiagram
-    DOCS ||--|{ SERVICE : provides
-    DOCS ||--|{ PROVIDER : from 
-    DOCS ||--|{ DOMAIN : belongs
-    DOCS ||--|{ CATEGORY : belongs
-    DOCS ||--o{ FEATURE : contains
-    DOCS ||--o{ LABEL : has
-    DOMAIN ||--o{ DOMAIN : relates
+    GLOSSARY |o..|| SERVICE : defines
+    GLOSSARY |o..|| PROVIDER : defines
+    GLOSSARY |o..|| DOMAIN : defines
+    GLOSSARY |o..|| CATEGORY : defines
+    GLOSSARY |o..|| FEATURE : defines
+    GLOSSARY |o..|| LABEL : defines
+    SERVICE ||--o{ DOC : relates
+    PROVIDER ||--o{ DOC : creates
+    DOMAIN ||--o{ DOC : relates
+    CATEGORY ||--o{ DOC : relates
+    FEATURE ||--o{ DOC : relates
+    LABEL ||--o{ DOC : describes
+    DOMAIN }|--o{ DOMAIN : relates
     DOMAIN ||--o{ SERVICE : relates
     CATEGORY ||--o{ DOMAIN : relates
-    CATEGORY ||--o{ CATEGORY: relates
+    CATEGORY }|--o{ CATEGORY: relates
     FEATURE ||--o{ CATEGORY : relates
-</code></pre><h2 id=logical-model>Logical Model</h2>
+</code></pre><table>
+<thead>
+<tr>
+<th>Group</th>
+<th>Ancestors</th>
+<th>Descendants</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Service</td>
+<td>N/A</td>
+<td>Domain, Category, Feature</td>
+</tr>
+<tr>
+<td>Provider</td>
+<td>N/A</td>
+<td>N/A</td>
+</tr>
+<tr>
+<td>Domain</td>
+<td>Domain</td>
+<td>Service, Category, Feature</td>
+</tr>
+<tr>
+<td>Category</td>
+<td>Domain, Service, Category</td>
+<td>Feature</td>
+</tr>
+<tr>
+<td>Feature</td>
+<td>Domain, Service, Category</td>
+<td>N/A</td>
+</tr>
+<tr>
+<td>Label</td>
+<td>N/A</td>
+<td>N/A</td>
+</tr>
+</tbody>
+</table>
+<p>Domain and Category can have subgroups. i.e. <code>container orchestrator</code> and <code>kubernetes</code></p>
+<h2 id=logical-data-model>Logical Data Model</h2>
+<p>Terms referenced in doc entries inhert their ancestors from the glossary.</p>
 <pre tabindex=0><code class=language-mermaid data-lang=mermaid>erDiagram
-    DOCS ||--|{ SERVICE : provides
-    DOCS ||--|{ PROVIDER : from 
-    DOCS ||--|{ DOMAIN : belongs
-    DOCS ||--|{ CATEGORY : belongs
-    DOCS ||--o{ FEATURE : contains
-    DOCS ||--o{ LABEL : has
-    DOCS {
-        string title
-        string linkTitle
-        array services FK
-        array domains FK
-        array categories FK
-        array features FK
-        array labels FK
-    }
-    GLOSSARY ||--|| PROVIDER : defines
-    GLOSSARY ||--|| SERVICE : defines
-    GLOSSARY ||--|| DOMAIN : defines
-    GLOSSARY ||--|| CATEGORY: defines
-    GLOSSARY ||--|| FEATURE : defines
-    GLOSSARY ||--|| LABEL : defines
+    GLOSSARY |o..|| PROVIDER : defines
+    GLOSSARY |o..|| SERVICE : defines
+    GLOSSARY |o..|| DOMAIN : defines
+    GLOSSARY |o..|| CATEGORY : defines
+    GLOSSARY |o..|| FEATURE : defines
+    GLOSSARY |o..|| LABEL : defines
     GLOSSARY {
         string title
         string linkTitle PK
         url definitionLink
     }
+    SERVICE }|--|{ DOC : relates
+    SERVICE }o--o{ DOMAIN : relates
     SERVICE {
         string term PK
     }
+    PROVIDER }|--|{ DOC : creates
     PROVIDER {
         string term PK
     }
-    DOMAIN ||--o{ SERVICE : relates
-    DOMAIN ||--o{ DOMAIN : relates
+    DOMAIN }|--|{ DOC : relates
+    DOMAIN }o--o{ CATEGORY : relates
+    DOMAIN }|--o{ DOMAIN : relates
     DOMAIN {
         string term PK
         array services FK
         array domains FK
     }
-    CATEGORY ||--|{ DOMAIN : relates
-    CATEGORY ||--o{ CATEGORY: relates
+    CATEGORY }|--|{ DOC : relates 
+    CATEGORY }o--o{ FEATURE : relates
+    CATEGORY }|--o{ CATEGORY: relates
     CATEGORY {
         string term PK
         array services FK
         array domains FK
         array categories FK
     }
-    FEATURE ||--|{ CATEGORY : relates
+    FEATURE }o--o{ DOC : relates 
     FEATURE {
         string term PK
         array services FK
         array domains FK
         array categories FK
     }
+    LABEL }o--o{ DOC : describes
     LABEL {
         string term PK
     }
-</code></pre><h2 id=physical-model>Physical Model</h2>
-<pre tabindex=0><code class=language-mermaid data-lang=mermaid>erDiagram
-    DOCS ||--|{ GLOSSARY : relates
-    DOCS {
-        string title &quot;Full title of entry&quot;
-        string linkTitle &quot;Short title of entry&quot;
-        array services FK &quot;List of terms for related services&quot;
-        array domains FK &quot;List of terms for related domains&quot;
-        array categories FK &quot;List of terms for related categories&quot;
-        array features FK &quot;List of terms for related features&quot;
-        array labels FK &quot;List of terms for related labels&quot;
+    DOC {
+        string title
+        string linkTitle
+        array services FK
+        array providers FK
+        array domains FK
+        array categories FK
+        array features FK
+        array labels FK
     }
-    GLOSSARY ||--o{ GLOSSARY : relates
+</code></pre><p>The model flexibility incurs some complexity and potentially duplicated relationships.</p>
+<h2 id=physical-data-model>Physical Data Model</h2>
+<p>Each doc specifes minimal taxonomy terms and infers relationships from the glossary.</p>
+<pre tabindex=0><code class=language-mermaid data-lang=mermaid>erDiagram
+    GLOSSARY }o--o{ GLOSSARY : relates
     GLOSSARY {
         string title &quot;Full title of term&quot;
         string linkTitle PK &quot;Term name as referenced by docs&quot;
@@ -433,7 +661,18 @@
         array domains FK &quot;List of terms for related domains&quot;
         array categories FK &quot;List of terms for related categories&quot;
     }
-</code></pre>
+    GLOSSARY }o..o{ DOC : relates
+    DOC {
+        string title &quot;Full title of entry&quot;
+        string linkTitle &quot;Short title of entry&quot;
+        array services FK &quot;List of terms for related services&quot;
+        array providers FK &quot;List of terms for related providers&quot;
+        array domains FK &quot;List of terms for related domains&quot;
+        array categories FK &quot;List of terms for related categories&quot;
+        array features FK &quot;List of terms for related features&quot;
+        array labels FK &quot;List of terms for related labels&quot;
+    }
+</code></pre><p>Each doc entry should minimally list or inherit a service, domain and category.</p>
 </div>
 </main>
 </div>
