@@ -14,8 +14,8 @@
 <meta property="og:type" content="website">
 <meta property="og:description" content="Lexical.cloud is a cross-reference of products and capabilities of many cloud providers">
 <meta property="og:url" content="https://lexical.cloud/pages/data-model/">
-<link rel=preload href=/scss/main.min.5f809f656ab8418f2b4bc4c6bb80993957377759b5e5e46bb3d31fab90a46a8d.css as=style>
-<link href=/scss/main.min.5f809f656ab8418f2b4bc4c6bb80993957377759b5e5e46bb3d31fab90a46a8d.css rel=stylesheet integrity>
+<link rel=preload href=/scss/main.min.0f60e5cf20ed1e430eee71e6e356cadba21986e9f2270c3aab12309a9fed212b.css as=style>
+<link href=/scss/main.min.0f60e5cf20ed1e430eee71e6e356cadba21986e9f2270c3aab12309a9fed212b.css rel=stylesheet integrity>
 <script src=https://code.jquery.com/jquery-3.6.0.min.js integrity=sha384-vtXRMe3mGCbOeY7l30aIg8H9p3GdeSe4IFlP6G8JMa7o7lXvnz3GFKzPxzJdPfGK crossorigin=anonymous></script>
 </head>
 <body class="td-page td-blog">
@@ -129,7 +129,11 @@
 <div class=td-toc><nav id=TableOfContents>
 <ul>
 <li><a href=#taxonomy-group>Taxonomy Group</a></li>
-<li><a href=#example-metadata>Example Metadata</a></li>
+<li><a href=#example-metadata>Example Metadata</a>
+<ul>
+<li></li>
+</ul>
+</li>
 <li><a href=#term-relations>Term Relations</a></li>
 <li><a href=#logical-data-model>Logical Data Model</a></li>
 <li><a href=#physical-data-model>Physical Data Model</a></li>
@@ -289,7 +293,7 @@
 <li><a class=taxonomy-term href=/features/auto-scaling/ data-taxonomy-term=auto-scaling><span class=taxonomy-label>auto scaling</span><span class=taxonomy-count>3</span></a></li>
 <li><a class=taxonomy-term href=/features/automation/ data-taxonomy-term=automation><span class=taxonomy-label>automation</span><span class=taxonomy-count>2</span></a></li>
 <li><a class=taxonomy-term href=/features/community/ data-taxonomy-term=community><span class=taxonomy-label>community</span><span class=taxonomy-count>1</span></a></li>
-<li><a class=taxonomy-term href=/features/container-based/ data-taxonomy-term=container-based><span class=taxonomy-label>container-based</span><span class=taxonomy-count>1</span></a></li>
+<li><a class=taxonomy-term href=/features/container-based/ data-taxonomy-term=container-based><span class=taxonomy-label>container-based</span><span class=taxonomy-count>2</span></a></li>
 <li><a class=taxonomy-term href=/features/conversational-interface/ data-taxonomy-term=conversational-interface><span class=taxonomy-label>conversational interface</span><span class=taxonomy-count>6</span></a></li>
 <li><a class=taxonomy-term href=/features/cost-estimation/ data-taxonomy-term=cost-estimation><span class=taxonomy-label>cost estimation</span><span class=taxonomy-count>4</span></a></li>
 <li><a class=taxonomy-term href=/features/cost-forecast/ data-taxonomy-term=cost-forecast><span class=taxonomy-label>cost forecast</span><span class=taxonomy-count>2</span></a></li>
@@ -309,6 +313,7 @@
 <li><a class=taxonomy-term href=/features/reports/ data-taxonomy-term=reports><span class=taxonomy-label>reports</span><span class=taxonomy-count>2</span></a></li>
 <li><a class=taxonomy-term href=/features/resource-locks/ data-taxonomy-term=resource-locks><span class=taxonomy-label>resource locks</span><span class=taxonomy-count>3</span></a></li>
 <li><a class=taxonomy-term href=/features/rest-api/ data-taxonomy-term=rest-api><span class=taxonomy-label>rest api</span><span class=taxonomy-count>5</span></a></li>
+<li><a class=taxonomy-term href=/features/scale-to-zero/ data-taxonomy-term=scale-to-zero><span class=taxonomy-label>scale-to-zero</span><span class=taxonomy-count>1</span></a></li>
 <li><a class=taxonomy-term href=/features/sentiment-analysis/ data-taxonomy-term=sentiment-analysis><span class=taxonomy-label>sentiment analysis</span><span class=taxonomy-count>2</span></a></li>
 <li><a class=taxonomy-term href=/features/speaker-recognition/ data-taxonomy-term=speaker-recognition><span class=taxonomy-label>speaker recognition</span><span class=taxonomy-count>1</span></a></li>
 <li><a class=taxonomy-term href=/features/speech-to-text/ data-taxonomy-term=speech-to-text><span class=taxonomy-label>speech-to-text</span><span class=taxonomy-count>2</span></a></li>
@@ -334,7 +339,7 @@
 <header class=article-meta>
 </header>
 <p>Lexical.cloud curates cloud products into hierarchical groups, also known as a taxonomy.
-Taxonomy terms are populated by metadata from each entry in our docs and glossary.</p>
+Taxonomy terms are populated by metadata from each product, product model and glossary entry.</p>
 <table>
 <thead>
 <tr>
@@ -345,13 +350,18 @@ Taxonomy terms are populated by metadata from each entry in our docs and glossar
 </thead>
 <tbody>
 <tr>
-<td>Doc</td>
+<td>Product</td>
 <td>Documented cloud products</td>
-<td>en/docs/{service}/{provider}/</td>
+<td>en/products/{service}/{provider}/</td>
+</tr>
+<tr>
+<td>Product Model</td>
+<td>Models of cloud products</td>
+<td>en/products/{service}/{provider}/{modelId}</td>
 </tr>
 <tr>
 <td>Glossary</td>
-<td>Terms used in taxonomy by docs</td>
+<td>Terms in product taxonomy</td>
 <td>en/glossary/</td>
 </tr>
 </tbody>
@@ -361,7 +371,7 @@ Taxonomy terms are populated by metadata from each entry in our docs and glossar
 Use &ldquo;Create docs issue&rdquo; to submit ideas for improving the below illustrations. Thanks!
 </div>
 <h2 id=taxonomy-group>Taxonomy Group</h2>
-<p>Terms for each group originate in the docs. The glossary independently defines a term.</p>
+<p>Terms for each group originate in products. The glossary independently defines a term.</p>
 <pre tabindex=0><code class=language-mermaid data-lang=mermaid>erDiagram
     GLOSSARY |o..|| SERVICE : defines
     GLOSSARY |o..|| PROVIDER : defines
@@ -369,12 +379,15 @@ Use &ldquo;Create docs issue&rdquo; to submit ideas for improving the below illu
     GLOSSARY |o..|| CATEGORY : defines
     GLOSSARY |o..|| FEATURE : defines
     GLOSSARY |o..|| LABEL : defines
-    SERVICE ||--o{ DOC : originates
-    PROVIDER ||--o{ DOC : originates
-    DOMAIN ||--o{ DOC : originates
-    CATEGORY ||--o{ DOC : originates
-    FEATURE ||--o{ DOC : originates
-    LABEL ||--o{ DOC : originates
+    SERVICE ||--o{ PRODUCT : originates
+    PROVIDER ||--o{ PRODUCT : originates
+    DOMAIN ||--o{ PRODUCT : originates
+    CATEGORY ||--o{ PRODUCT : originates
+    FEATURE ||--o{ PRODUCT : originates
+    FEATURE ||--o{ PRODUCT-MODEL : originates
+    LABEL ||--o{ PRODUCT : originates
+    LABEL ||--o{ PRODUCT-MODEL : originates
+    PRODUCT ||--o{ PRODUCT-MODEL : has
 </code></pre><table>
 <thead>
 <tr>
@@ -417,7 +430,7 @@ Use &ldquo;Create docs issue&rdquo; to submit ideas for improving the below illu
 </tbody>
 </table>
 <h2 id=example-metadata>Example Metadata</h2>
-<p>Let&rsquo;s explore <strong>doc</strong> entries for monitoring products:</p>
+<p>Let&rsquo;s explore <strong>product</strong> entries for monitoring products:</p>
 <ul class="nav nav-tabs" id=tabs-1 role=tablist><li class=nav-item>
 <a class="nav-link active tab-Amazon-CloudWatch" id=tabs-1-0-tab data-toggle=tab href=#tabs-1-0 role=tab onclick='handleClick("Amazon-CloudWatch")' aria-controls=tabs-1-0 aria-selected=true>
 Amazon CloudWatch
@@ -524,22 +537,62 @@ linkTitle: &#34;alerts&#34;
 definitionLink: &#34;https://en.wikipedia.org/wiki/Alert_messaging&#34;
 ---</code></pre></div>
 </div>
-<p>Notice the relationship of glossary <code>linkTitle</code> with the doc entries.</p>
+<p>Notice the relationship of glossary <code>linkTitle</code> with the product entries.</p>
+<h5 id=what-about-product-model-entries>What about <strong>product model</strong> entries?</h5>
+<p>The products above did not have any models, but an example would be:</p>
+<pre tabindex=0><code>features:
+  - &quot;example feature&quot;
+labels:
+  - &quot;example label&quot;
+title: &quot;Product Name (model name)&quot;
+linkTitle: &quot;Model Name&quot;
+productHierarchyTier: &quot;model&quot;
+</code></pre><p>Notice that services, categories and domains were not listed. They&rsquo;re inherited from the product. It&rsquo;s possible to list additional entries for all groups, but that is not illustrated on this page.</p>
+<p><strong>Products vs Product Models</strong></p>
+<table>
+<thead>
+<tr>
+<th>Difference</th>
+<th>Product</th>
+<th>Product Model</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Location</td>
+<td><code>{product-path}/product-name.md</code></td>
+<td><code>{product-path}/product-name/model-name.md</code></td>
+</tr>
+<tr>
+<td>Attribute</td>
+<td>N/A</td>
+<td><code>productHierarchyTier="model"</code></td>
+</tr>
+<tr>
+<td>Groups</td>
+<td>can inherit from glossary</td>
+<td>also inherits from product</td>
+</tr>
+</tbody>
+</table>
 <h2 id=term-relations>Term Relations</h2>
-<p>The glossary optionally relates each term to ancestor groups. Many docs reference each term.</p>
+<p>The glossary optionally relates each term to ancestor groups. Many products reference each term.</p>
 <pre tabindex=0><code class=language-mermaid data-lang=mermaid>erDiagram
+    PRODUCT ||--o{ PRODUCT-MODEL : has
     GLOSSARY |o..|| SERVICE : defines
     GLOSSARY |o..|| PROVIDER : defines
     GLOSSARY |o..|| DOMAIN : defines
     GLOSSARY |o..|| CATEGORY : defines
     GLOSSARY |o..|| FEATURE : defines
     GLOSSARY |o..|| LABEL : defines
-    SERVICE ||--o{ DOC : relates
-    PROVIDER ||--o{ DOC : creates
-    DOMAIN ||--o{ DOC : relates
-    CATEGORY ||--o{ DOC : relates
-    FEATURE ||--o{ DOC : relates
-    LABEL ||--o{ DOC : describes
+    SERVICE ||--o{ PRODUCT : relates
+    PROVIDER ||--o{ PRODUCT : creates
+    DOMAIN ||--o{ PRODUCT : relates
+    CATEGORY ||--o{ PRODUCT : relates
+    FEATURE ||--o{ PRODUCT : relates
+    FEATURE ||--o{ PRODUCT-MODEL : relates
+    LABEL ||--o{ PRODUCT : describes
+    LABEL ||--o{ PRODUCT-MODEL : describes
     DOMAIN }|--o{ DOMAIN : relates
     DOMAIN ||--o{ SERVICE : relates
     CATEGORY ||--o{ DOMAIN : relates
@@ -588,7 +641,7 @@ definitionLink: &#34;https://en.wikipedia.org/wiki/Alert_messaging&#34;
 </table>
 <p>Domain and Category can have subgroups. i.e. <code>container orchestrator</code> and <code>kubernetes</code></p>
 <h2 id=logical-data-model>Logical Data Model</h2>
-<p>Terms referenced in doc entries inhert their ancestors from the glossary.</p>
+<p>Terms referenced in product entries inhert their ancestors from the glossary.</p>
 <pre tabindex=0><code class=language-mermaid data-lang=mermaid>erDiagram
     GLOSSARY |o..|| PROVIDER : defines
     GLOSSARY |o..|| SERVICE : defines
@@ -601,16 +654,16 @@ definitionLink: &#34;https://en.wikipedia.org/wiki/Alert_messaging&#34;
         string linkTitle PK
         url definitionLink
     }
-    SERVICE }|--|{ DOC : relates
+    SERVICE }|--|{ PRODUCT : relates
     SERVICE }o--o{ DOMAIN : relates
     SERVICE {
         string term PK
     }
-    PROVIDER }|--|{ DOC : creates
+    PROVIDER }|--|{ PRODUCT : creates
     PROVIDER {
         string term PK
     }
-    DOMAIN }|--|{ DOC : relates
+    DOMAIN }|--|{ PRODUCT : relates
     DOMAIN }o--o{ CATEGORY : relates
     DOMAIN }|--o{ DOMAIN : relates
     DOMAIN {
@@ -618,7 +671,7 @@ definitionLink: &#34;https://en.wikipedia.org/wiki/Alert_messaging&#34;
         array services FK
         array domains FK
     }
-    CATEGORY }|--|{ DOC : relates 
+    CATEGORY }|--|{ PRODUCT : relates 
     CATEGORY }o--o{ FEATURE : relates
     CATEGORY }|--o{ CATEGORY: relates
     CATEGORY {
@@ -627,18 +680,20 @@ definitionLink: &#34;https://en.wikipedia.org/wiki/Alert_messaging&#34;
         array domains FK
         array categories FK
     }
-    FEATURE }o--o{ DOC : relates 
+    FEATURE }o--o{ PRODUCT : relates 
+    FEATURE }o--o{ PRODUCT-MODEL : relates 
     FEATURE {
         string term PK
         array services FK
         array domains FK
         array categories FK
     }
-    LABEL }o--o{ DOC : describes
+    LABEL }o--o{ PRODUCT : describes
+    LABEL }o--o{ PRODUCT-MODEL : describes
     LABEL {
         string term PK
     }
-    DOC {
+    PRODUCT {
         string title
         string linkTitle
         array services FK
@@ -648,21 +703,28 @@ definitionLink: &#34;https://en.wikipedia.org/wiki/Alert_messaging&#34;
         array features FK
         array labels FK
     }
+    PRODUCT ||--o{ PRODUCT-MODEL : relates
+    PRODUCT-MODEL {
+        string title
+        string linkTitle
+        array features FK
+        array labels FK
+    }
 </code></pre><p>The model flexibility incurs some complexity and potentially duplicated relationships.</p>
 <h2 id=physical-data-model>Physical Data Model</h2>
-<p>Each doc specifes minimal taxonomy terms and infers relationships from the glossary.</p>
+<p>Each product specifes minimal taxonomy terms and infers relationships from the glossary.</p>
 <pre tabindex=0><code class=language-mermaid data-lang=mermaid>erDiagram
     GLOSSARY }o--o{ GLOSSARY : relates
     GLOSSARY {
         string title &quot;Full title of term&quot;
-        string linkTitle PK &quot;Term name as referenced by docs&quot;
+        string linkTitle PK &quot;Term name as referenced by products&quot;
         url definitionLink &quot;Optional link to definition&quot;
         array services FK &quot;List of terms for related services&quot;
         array domains FK &quot;List of terms for related domains&quot;
         array categories FK &quot;List of terms for related categories&quot;
     }
-    GLOSSARY }o..o{ DOC : relates
-    DOC {
+    GLOSSARY }o..o{ PRODUCT : relates
+    PRODUCT {
         string title &quot;Full title of entry&quot;
         string linkTitle &quot;Short title of entry&quot;
         array services FK &quot;List of terms for related services&quot;
@@ -672,7 +734,7 @@ definitionLink: &#34;https://en.wikipedia.org/wiki/Alert_messaging&#34;
         array features FK &quot;List of terms for related features&quot;
         array labels FK &quot;List of terms for related labels&quot;
     }
-</code></pre><p>Each doc entry should minimally list or inherit a service, domain and category.</p>
+</code></pre><p>Each product and model entry should minimally list or inherit a service, domain and category.</p>
 </div>
 </main>
 </div>
