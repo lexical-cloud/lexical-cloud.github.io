@@ -129,7 +129,11 @@
 <div class=td-toc><nav id=TableOfContents>
 <ul>
 <li><a href=#taxonomy-group>Taxonomy Group</a></li>
-<li><a href=#example-metadata>Example Metadata</a></li>
+<li><a href=#example-metadata>Example Metadata</a>
+<ul>
+<li></li>
+</ul>
+</li>
 <li><a href=#term-relations>Term Relations</a></li>
 <li><a href=#logical-data-model>Logical Data Model</a></li>
 <li><a href=#physical-data-model>Physical Data Model</a></li>
@@ -335,7 +339,7 @@
 <header class=article-meta>
 </header>
 <p>Lexical.cloud curates cloud products into hierarchical groups, also known as a taxonomy.
-Taxonomy terms are populated by metadata from each product and glossary entry.</p>
+Taxonomy terms are populated by metadata from each product, product model and glossary entry.</p>
 <table>
 <thead>
 <tr>
@@ -351,8 +355,13 @@ Taxonomy terms are populated by metadata from each product and glossary entry.</
 <td>en/products/{service}/{provider}/</td>
 </tr>
 <tr>
+<td>Product Model</td>
+<td>Models of cloud products</td>
+<td>en/products/{service}/{provider}/{modelId}</td>
+</tr>
+<tr>
 <td>Glossary</td>
-<td>Terms used in taxonomy by products</td>
+<td>Terms in product taxonomy</td>
 <td>en/glossary/</td>
 </tr>
 </tbody>
@@ -375,7 +384,10 @@ Use &ldquo;Create docs issue&rdquo; to submit ideas for improving the below illu
     DOMAIN ||--o{ PRODUCT : originates
     CATEGORY ||--o{ PRODUCT : originates
     FEATURE ||--o{ PRODUCT : originates
+    FEATURE ||--o{ PRODUCT-MODEL : originates
     LABEL ||--o{ PRODUCT : originates
+    LABEL ||--o{ PRODUCT-MODEL : originates
+    PRODUCT ||--o{ PRODUCT-MODEL : has
 </code></pre><table>
 <thead>
 <tr>
@@ -526,9 +538,47 @@ definitionLink: &#34;https://en.wikipedia.org/wiki/Alert_messaging&#34;
 ---</code></pre></div>
 </div>
 <p>Notice the relationship of glossary <code>linkTitle</code> with the product entries.</p>
+<h5 id=what-about-product-model-entries>What about <strong>product model</strong> entries?</h5>
+<p>The products above did not have any models, but an example would be:</p>
+<pre tabindex=0><code>features:
+  - &quot;example feature&quot;
+labels:
+  - &quot;example label&quot;
+title: &quot;Product Name (model name)&quot;
+linkTitle: &quot;Model Name&quot;
+productHierarchyTier: &quot;model&quot;
+</code></pre><p>Notice that services, categories and domains were not listed. They&rsquo;re inherited from the product. It&rsquo;s possible to list additional entries for all groups, but that is not illustrated on this page.</p>
+<p><strong>Products vs Product Models</strong></p>
+<table>
+<thead>
+<tr>
+<th>Difference</th>
+<th>Product</th>
+<th>Product Model</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Location</td>
+<td><code>{product-path}/product-name.md</code></td>
+<td><code>{product-path}/product-name/model-name.md</code></td>
+</tr>
+<tr>
+<td>Attribute</td>
+<td>N/A</td>
+<td><code>productHierarchyTier="model"</code></td>
+</tr>
+<tr>
+<td>Groups</td>
+<td>can inherit from glossary</td>
+<td>also inherits from product</td>
+</tr>
+</tbody>
+</table>
 <h2 id=term-relations>Term Relations</h2>
 <p>The glossary optionally relates each term to ancestor groups. Many products reference each term.</p>
 <pre tabindex=0><code class=language-mermaid data-lang=mermaid>erDiagram
+    PRODUCT ||--o{ PRODUCT-MODEL : has
     GLOSSARY |o..|| SERVICE : defines
     GLOSSARY |o..|| PROVIDER : defines
     GLOSSARY |o..|| DOMAIN : defines
@@ -540,7 +590,9 @@ definitionLink: &#34;https://en.wikipedia.org/wiki/Alert_messaging&#34;
     DOMAIN ||--o{ PRODUCT : relates
     CATEGORY ||--o{ PRODUCT : relates
     FEATURE ||--o{ PRODUCT : relates
+    FEATURE ||--o{ PRODUCT-MODEL : relates
     LABEL ||--o{ PRODUCT : describes
+    LABEL ||--o{ PRODUCT-MODEL : describes
     DOMAIN }|--o{ DOMAIN : relates
     DOMAIN ||--o{ SERVICE : relates
     CATEGORY ||--o{ DOMAIN : relates
@@ -629,6 +681,7 @@ definitionLink: &#34;https://en.wikipedia.org/wiki/Alert_messaging&#34;
         array categories FK
     }
     FEATURE }o--o{ PRODUCT : relates 
+    FEATURE }o--o{ PRODUCT-MODEL : relates 
     FEATURE {
         string term PK
         array services FK
@@ -636,6 +689,7 @@ definitionLink: &#34;https://en.wikipedia.org/wiki/Alert_messaging&#34;
         array categories FK
     }
     LABEL }o--o{ PRODUCT : describes
+    LABEL }o--o{ PRODUCT-MODEL : describes
     LABEL {
         string term PK
     }
@@ -646,6 +700,13 @@ definitionLink: &#34;https://en.wikipedia.org/wiki/Alert_messaging&#34;
         array providers FK
         array domains FK
         array categories FK
+        array features FK
+        array labels FK
+    }
+    PRODUCT ||--o{ PRODUCT-MODEL : relates
+    PRODUCT-MODEL {
+        string title
+        string linkTitle
         array features FK
         array labels FK
     }
@@ -673,7 +734,7 @@ definitionLink: &#34;https://en.wikipedia.org/wiki/Alert_messaging&#34;
         array features FK &quot;List of terms for related features&quot;
         array labels FK &quot;List of terms for related labels&quot;
     }
-</code></pre><p>Each product entry should minimally list or inherit a service, domain and category.</p>
+</code></pre><p>Each product and model entry should minimally list or inherit a service, domain and category.</p>
 </div>
 </main>
 </div>
