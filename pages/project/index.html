@@ -155,7 +155,7 @@
 <li><a href=#json-generator>JSON Generator</a></li>
 <li><a href=#json-data>JSON Data</a></li>
 <li><a href=#api-gateway>API Gateway</a></li>
-<li><a href=#functions>Functions</a></li>
+<li><a href=#endpoints>Endpoints</a></li>
 <li><a href=#storage>Storage</a></li>
 <li><a href=#state-machine>State Machine</a></li>
 <li><a href=#datastore>Datastore</a></li>
@@ -423,12 +423,12 @@ so I can spread awareness of options for cloud architecture.</p>
 </code></pre><h3 id=lexicalcloud>Lexical.cloud</h3>
 <p>Given <code>Lexical.cloud</code> is a <code>community data</code> project <br>
 when <code>contributors</code> <em>maintain</em> the <code>community data</code> <br>
-then <code>community data</code> <em>feeds</em> the <code>frontend</code> and <code>backend</code>.</p>
+then <code>community data</code> <em>populates</em> the <code>frontend</code> and <code>backend</code>.</p>
 <p>Given <code>Lexical.cloud</code> exposes data in a <code>backend</code> <br>
-when <code>community data</code> <em>feeds</em> into the <code>backend</code> <br>
+when <code>community data</code> <em>populates</em> the <code>backend</code> <br>
 then <code>apps</code> can <em>leverage</em> the <code>backend</code>.</p>
 <p>Given <code>Lexical.cloud</code> needs a <code>frontend</code> to display data <br>
-when <code>community data</code> <em>feeds</em> into the <code>frontend</code> <br>
+when <code>community data</code> <em>populates</em> the <code>frontend</code> <br>
 then <code>consumers</code> can <em>explore</em> the <code>frontend</code>.</p>
 <pre tabindex=0><code class=language-mermaid data-lang=mermaid>flowchart TD
 %% entities
@@ -458,8 +458,8 @@ then <code>consumers</code> can <em>explore</em> the <code>frontend</code>.</p>
   U1 --&gt;|explore| G6
   U2 --&gt;|maintain| G4 
   U3 --&gt;|develop| G2
-  G4 --&gt;|feeds| G5
-  G4 --&gt;|feeds| G6
+  G4 --&gt;|populates| G5
+  G4 --&gt;|populates| G6
   G2 --&gt;|leverage| G5
 %% styles
   classDef clickable fill:#3176d9,color:white
@@ -472,19 +472,20 @@ then <code>consumers</code> can <em>explore</em> the <code>frontend</code>.</p>
   click G6 &quot;#frontend&quot;
 </code></pre><h2 id=containers>Containers</h2>
 <h3 id=community-data>Community Data</h3>
-<p>Given <code>Lexical.cloud</code> <code>community data</code> <code>sources</code> <br>
+<p><strong>DIAGRAM</strong> | <a href=/blog/decisions/community-data><strong>DECISION LOG</strong></a></p>
+<p>Given <code>Lexical.cloud</code> <code>community data</code> <code>sources</code>
 include a <code>cloud catalog</code> <br>
 when <code>contributors</code> <em>maintain</em> the <code>cloud catalog</code> <br>
 then the <code>cloud catalog</code> <em>feeds</em> many <code>transforms</code>.</p>
-<p>Given <code>Lexical.cloud</code> <code>community data</code> <code>tranforms</code> <br>
+<p>Given <code>Lexical.cloud</code> <code>community data</code> <code>tranforms</code>
 include a <code>static site generator</code> <br>
 when the <code>static site generator</code> <em>produces</em> <code>html content</code> <br>
 then the <code>html content</code> <em>populates</em> the <code>frontend</code> <br>
-and <code>consumers</code> can <em>explore</em> that content on the <code>website</code>.</p>
-<p>Given <code>Lexical.cloud</code> <code>community data</code> <code>tranforms</code> <br>
+and <code>consumers</code> can <em>explore</em> that content on the <code>frontend</code>.</p>
+<p>Given <code>Lexical.cloud</code> <code>community data</code> <code>tranforms</code>
 include a <code>json generator</code> <br>
 when the <code>json generator</code> <em>produces</em> the <code>json data</code> <br>
-then the <code>json data</code> <em>populates</em> updates to the <code>backend</code> <br>
+then the <code>json data</code> <em>populates</em> the <code>backend</code> <br>
 and <code>apps</code> <em>leverage</em> services on the <code>backend</code>.</p>
 <pre tabindex=0><code class=language-mermaid data-lang=mermaid>flowchart TD
 %% entities
@@ -556,6 +557,7 @@ and <code>apps</code> <em>leverage</em> services on the <code>backend</code>.</p
   click G5 &quot;#backend&quot;
   click G6 &quot;#frontend&quot;
 </code></pre><h3 id=backend>Backend</h3>
+<p><strong>DIAGRAM</strong> | <a href=/blog/decisions/backend><strong>DECISION LOG</strong></a></p>
 <p>Given <code>Lexical.cloud</code> <code>backend</code> begins <code>ingestion</code> with <code>storage</code> <br>
 when <code>community data</code><em>populates</em> backend <code>storage</code> <br>
 then data in <code>storage</code> is ready to <em>process</em> by the <code>state machine</code>.</p>
@@ -564,8 +566,8 @@ when <code>ingestion</code> completes at the <code>state machine</code> <br>
 then the <code>state machine</code> will <em>update</em> the <code>datastore</code>.</p>
 <p>Given <code>Lexical.cloud</code> <code>backend</code> <code>api</code> is fronted by an <code>api gateway</code> <br>
 when <code>apps</code> <em>leverage</em> the <code>api</code> <br>
-then the <code>api gateway</code> will <em>call</em> <code>functions</code> <br>
-and the <code>functions</code> will <em>query</em> the <code>datastore</code>.</p>
+then the <code>api gateway</code> will <em>call</em> <code>endpoints</code> <br>
+and the <code>endpoints</code> will <em>query</em> the <code>datastore</code>.</p>
 <pre tabindex=0><code class=language-mermaid data-lang=mermaid>flowchart TD
 %% entities
   %%U1[&quot;fa:fa-users Consumers&quot;]
@@ -606,7 +608,7 @@ and the <code>functions</code> will <em>query</em> the <code>datastore</code>.</
     I2
     G8a
   end
-  subgraph G8a[&quot;Functions&quot;]
+  subgraph G8a[&quot;Endpoints&quot;]
   end
 %% relationships
   %%U1 --&gt;|explore| G6
@@ -637,8 +639,9 @@ and the <code>functions</code> will <em>query</em> the <code>datastore</code>.</
   click I1 &quot;#storage&quot;
   click I2 &quot;#api-gateway&quot;
   click G7a &quot;#state-machine&quot;
-  click G8a &quot;#functions&quot;
+  click G8a &quot;#endpoints&quot;
 </code></pre><h3 id=frontend>Frontend</h3>
+<p><strong>DIAGRAM</strong> | <a href=/blog/decisions/frontend><strong>DECISION LOG</strong></a></p>
 <p>Given <code>Lexical.cloud</code> <code>frontend</code> includes a <code>website</code> <br>
 when <code>community data</code> <em>populates</em> the <code>frontend</code> <br>
 then <code>consumers</code> can <em>explore</em> that content on the <code>website</code>.</p>
@@ -686,8 +689,9 @@ then <code>consumers</code> can <em>explore</em> that content on the <code>websi
   click O1 &quot;#website&quot;
 </code></pre><h2 id=components>Components</h2>
 <h3 id=cloud-catalog>Cloud Catalog</h3>
+<p><strong>DIAGRAM</strong> | <a href=/blog/decisions/cloud-catalog><strong>DECISION LOG</strong></a> | <a href=https://www.github.com/lexical-cloud/lexical-cloud-docs><strong>CODE REPOSITORY</strong></a></p>
 <p>Given the <code>cloud catalog</code> consist of the repository at <a href=https://www.github.com/lexical-cloud/lexical-cloud-docs><code>lexical-cloud-docs</code></a> <br>
-and <code>lexical-cloud-docs</code> has a <code>GitHub Action</code> that triggers on merge completion <br>
+and <code>lexical-cloud-docs</code> <em>trigger</em> the <code>Github Action</code> on merge completion <br>
 when <code>contributors</code> <em>merge</em> content into <code>lexical-cloud-docs</code> <br>
 then a <code>Github Action</code> sends the catalog as <em>input</em> to <code>static site generator</code> <br>
 and a <code>Github Action</code> sends the catalog as <em>input</em> to <code>json generator</code>.</p>
@@ -720,6 +724,7 @@ and a <code>Github Action</code> sends the catalog as <em>input</em> to <code>js
   click G3 &quot;#json-generator&quot;
 </code></pre><p><em>TODO: Github Action</em></p>
 <h3 id=static-site-generator>Static Site Generator</h3>
+<p><strong>DIAGRAM</strong> | <a href=/blog/decisions/static-site-generator><strong>DECISION LOG</strong></a> | <a href=https://www.github.com/lexical-cloud/lexical-cloud-docs-hugo><strong>CODE REPOSITORY</strong></a></p>
 <p>Given the <code>static site generator</code> consist of the repository at <a href=https://www.github.com/lexical-cloud/lexical-cloud-docs-hugo><code>lexical-cloud-docs-hugo</code></a> <br>
 and <code>lexical-cloud-docs-hugo</code> has a <em>base theme</em> of <a href=https://www.github.com/lexical-cloud/docsy><code>docsy</code></a> for <a href=https://gohugo.io/>hugo</a> <br>
 when the <code>cloud catalog</code> is <em>input</em> to <code>lexical-cloud-docs-hugo</code> <br>
@@ -751,6 +756,7 @@ then <code>lexical-cloud-docs-hugo</code> sends <em>output</em> to <code>html co
   click G2 &quot;#cloud-catalog&quot;
   click G3 &quot;#html-content&quot;
 </code></pre><h3 id=html-content>HTML Content</h3>
+<p><strong>DIAGRAM</strong> | <a href=/blog/decisions/html-content><strong>DECISION LOG</strong></a> | <a href=https://www.github.com/lexical-cloud/lexical-cloud.github.io><strong>CODE REPOSITORY</strong></a></p>
 <p>Given the <code>html content</code> consist of the repository at <a href=https://www.github.com/lexical-cloud/lexical-cloud.github.io><code>lexical-cloud.github.io</code></a> <br>
 when the <code>static site generator</code> sends <em>output</em> to <code>lexical-cloud.github.io</code> <br>
 then the <code>website</code> will <em>serve</em> content at <code>lexical-cloud.github.io</code>.</p>
@@ -777,6 +783,7 @@ then the <code>website</code> will <em>serve</em> content at <code>lexical-cloud
   click G2 &quot;#static-site-generator&quot;
   click G3 &quot;#website&quot;
 </code></pre><h3 id=website>Website</h3>
+<p><strong>DIAGRAM</strong> | <a href=/blog/decisions/website><strong>DECISION LOG</strong></a> | <a href=https://www.github.com/lexical-cloud/lexical-cloud.github.io><strong>CODE REPOSITORY</strong></a></p>
 <p>Given the <code>website</code> is hosted on <code>Github Pages</code> <br>
 when <code>consumers</code> <em>explore</em> the <code>website</code> <br>
 then <code>Github Pages</code> <em>serve</em> the repository of <code>HTML content</code></p>
@@ -801,9 +808,10 @@ then <code>Github Pages</code> <em>serve</em> the repository of <code>HTML conte
   click C2 href &quot;https://www.github.com/lexical-cloud/lexical-cloud.github.io&quot; _blank
   click G2 &quot;#html-content&quot;
 </code></pre><h3 id=json-generator>JSON Generator</h3>
+<p><strong>DIAGRAM</strong> | <a href=/blog/decisions/json-generator><strong>DECISION LOG</strong></a> | <a href=https://www.github.com/lexical-cloud/lexical-cloud-data-hugo><strong>CODE REPOSITORY</strong></a></p>
 <p>Given <code>json generator</code> consist of the repository at <a href=https://www.github.com/lexical-cloud/lexical-cloud-data-hugo><code>lexical-cloud-data-hugo</code></a> <br>
 and <code>lexical-cloud-data-hugo</code> has a <code>base theme</code> of <a href=https://www.github.com/lexical-cloud/docsy><code>docsy</code></a> for <a href=https://gohugo.io/>hugo</a> <br>
-when <code>lexical-cloud-docs</code> is <em>input</em> to <code>lexical-cloud-data-hugo</code> <br>
+when the <code>cloud catalog</code> is <em>input</em> to <code>lexical-cloud-data-hugo</code> <br>
 then <code>lexical-cloud-data-hugo</code> sends <em>output</em> to <code>lexical-cloud-data</code>.</p>
 <pre tabindex=0><code class=language-mermaid data-lang=mermaid>flowchart LR
 %% entities
@@ -832,6 +840,7 @@ then <code>lexical-cloud-data-hugo</code> sends <em>output</em> to <code>lexical
   click G2 &quot;#cloud-catalog&quot;
   click G3 &quot;#json-data&quot;
 </code></pre><h3 id=json-data>JSON Data</h3>
+<p><strong>DIAGRAM</strong> | <a href=/blog/decisions/json-data><strong>DECISION LOG</strong></a> | <a href=https://www.github.com/lexical-cloud/lexical-cloud-data><strong>CODE REPOSITORY</strong></a></p>
 <p>Given the <code>json data</code> consist of the repository at <a href=https://www.github.com/lexical-cloud/lexical-cloud-data><code>lexical-cloud-data</code></a> <br>
 and <code>lexical-cloud-data</code> has a <code>Github Action</code> that executes on merge completion <br>
 when the <code>json generator</code> sends <em>output</em> to <code>lexical-cloud-data</code> <br>
@@ -862,7 +871,7 @@ then the <code>Github action</code> fires an event to <em>notify</em> <code>subs
 </code></pre><p><em>TODO: Github Action</em></p>
 <h3 id=api-gateway>API Gateway</h3>
 <p><em>TODO</em></p>
-<h3 id=functions>Functions</h3>
+<h3 id=endpoints>Endpoints</h3>
 <p><em>TODO</em></p>
 <h3 id=storage>Storage</h3>
 <p><em>TODO</em></p>
@@ -882,7 +891,7 @@ then the <code>Github action</code> fires an event to <em>notify</em> <code>subs
 <div class="col-6 col-sm-4 text-right text-xs-center order-sm-3">
 </div>
 <div class="col-12 col-sm-4 text-center py-2 order-sm-2">
-<small class=text-white>&copy; 2022 The Lexical.cloud Authors | Distributed under CC BY-SA 4.0</small>
+<small class=text-white>&copy; 2023 The Lexical.cloud Authors | Distributed under CC BY-SA 4.0</small>
 </div>
 </div>
 </div>
